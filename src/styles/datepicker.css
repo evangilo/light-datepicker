@@ -1,0 +1,106 @@
+.datepicker {
+	position: absolute;
+	width: 260px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    z-index: 9999;
+    background-color: #fff;
+}
+
+.datepicker .arrow {
+    position: relative;
+    background: #fff;
+}
+
+.datepicker .arrow:after{
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 10px solid rgba(0, 0, 0, 0.4);
+    border-color: #ffffff #ffffff transparent transparent;
+    transform: rotate(-45deg);
+    top: -23px;
+    left: 15px;
+    box-shadow: 3px -3px 3px 0 rgba(0, 0, 0, 0.15);
+}
+
+.datepicker .weekdays {
+    width: 260px;
+}
+
+.datepicker .weekdays span,
+.datepicker .calendar span {
+	display: inline-block;
+	background-color: #ffffff;
+	text-align: center;
+    text-transform: capitalize;
+	margin: 3px;
+	padding: 5px;
+	border: 1px solid #ffffff;
+	width: calc(1 / 7 * 100% - 18px);
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.calendar span.out-month {
+	visibility: hidden;
+}
+
+.calendar span.enabled {
+    background-color: #f5f5f5;
+    border: 1px solid #f5f5f5;
+    cursor: pointer;
+}
+
+.calendar span.disabled,
+.calendar span.disabled:hover {
+	background-color: #ffffff;
+	color: #cccccc;
+	border: 1px solid #ffffff;
+	cursor: default;
+}
+
+.calendar span.range,
+.calendar span.enabled:hover {
+    background-color: #ffffff;
+    border: 1px solid #ff690f;
+    color: #ff690f;
+}
+
+.calendar span.selected,
+.calendar span.selected:hover {
+    background-color: #ff690f;
+    color: #fff;
+    font-weight: 600;
+}
+
+.datepicker .header {
+    display: flex;
+	flex-direction: row;
+    justify-content: space-between;
+    line-height: 28px;
+}
+
+.datepicker .header .prev,
+.datepicker .header .next {
+	background-color: transparent;
+	border: none;
+	font-size: 1.5em;
+    font-weight: 900;
+    padding: 0;
+    cursor: pointer;
+    line-height: 18px;
+}
+
+.datepicker .header .prev:hover,
+.datepicker .header .next:hover {
+	color: #ff690f;
+	cursor: pointer;
+}
+
+.datepicker .header .prev.disabled,
+.datepicker .header .next.disabled {
+	visibility: hidden;
+}
