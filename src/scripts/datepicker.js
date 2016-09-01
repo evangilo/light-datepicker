@@ -14,7 +14,7 @@ export class DatePicker {
             language: 'en-Us',
             selector: null,
             updateInput: true,
-            weekdays: WEEKDAYS,
+            weekdays: WEEKDAYS
         };
         this.options = { ...this.options, ...options };
         this.options.currentMonth = Object.assign(this.options.currentDate);

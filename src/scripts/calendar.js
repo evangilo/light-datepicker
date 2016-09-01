@@ -13,13 +13,18 @@ export class Calendar {
 		this.listeners = [];
 		this.container = createNode('div', 'calendar', null);
 		weekdays.forEach(weekday => this.container.appendChild(createNode('span', 'weekday', weekday)));
-		this.nodes = Array.from({length: 42}).map(_ => {
-			let node = createNode('span', '');
-			node.addEventListener('click', event => this.emit('click', node));
-			this.container.appendChild(node);
-			return node;
-		});
+		this.nodes = new Array(42);
+		for (var i = 0; i < 42; i++) {
+			this.nodes[i] = this.createDateNode();
+			this.container.appendChild(this.nodes[i]);
+		}
 		this.container.addEventListener('mouseleave', event => this.emit('mouseleave'));
+	}
+
+	createDateNode() {
+		let node = createNode('span', '');
+		node.addEventListener('click', event => this.emit('click', node));
+		return node;
 	}
 
 	on(event, callback) {
