@@ -2,7 +2,8 @@ var single = new datepicker.DatePicker({ selector: '#datepicker' });
 var range = new datepicker.DatePickerRange({
     language: 'pt-BR',
     leftSelector: '#left-datepicker',
-    rightSelector: '#right-datepicker'
+    rightSelector: '#right-datepicker',
+    appendTo: '.jumbotron'
 });
 
 single.calendar.on('click', function(date) {

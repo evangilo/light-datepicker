@@ -35,6 +35,7 @@
     width: 260px;
 }
 
+
 .datepicker .weekdays span,
 .datepicker .calendar span {
     display: inline-block;
@@ -45,6 +46,10 @@
     padding: 5px;
     border: 1px solid #ffffff;
     width: calc(1 / 7 * 100% - 18px);
+}
+
+.datepicker .weekdays span {
+    padding: 0 !important;
 }
 
 .calendar span.out-month {

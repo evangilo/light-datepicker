@@ -14,7 +14,8 @@ export class DatePicker {
             language: 'en-Us',
             selector: null,
             updateInput: true,
-            weekdays: WEEKDAYS
+            weekdays: WEEKDAYS,
+            appendTo: 'body'
         };
         this.options = { ...this.options, ...options };
         this.options.currentMonth = Object.assign(this.options.currentDate);
@@ -53,7 +54,7 @@ export class DatePicker {
         this.datepicker.querySelector('.prev').addEventListener('click', event => this.onClickPrevMonth());
         this.datepicker.querySelector('.next').addEventListener('click', event => this.onClickNextMonth());
 
-        document.body.appendChild(this.datepicker);
+        document.querySelector(this.options.appendTo).appendChild(this.datepicker);
         document.addEventListener('click', event => {
             let target = event.target;
             let isOutsideClick = this.isOpened &&
