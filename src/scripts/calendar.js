@@ -40,7 +40,7 @@ export class Calendar {
     emit(event, node) {
         if (!node.classList.contains('disabled')) {
             this.listeners.filter((listener) => listener.event === event)
-                      .some((listener) => listener.callback(node.date));
+                          .some((listener) => listener.callback(node.date));
         }
     }
 

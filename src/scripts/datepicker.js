@@ -37,10 +37,7 @@ export class DatePicker {
         this.calendar.addDecorator(date => !isSame(date, this.options.currentMonth, 'year month'), 'out-month');
         this.calendar.addDecorator(date => isSame(date, this.options.currentMonth, 'year month'), 'enabled');
         this.calendar.addDecorator(date => isSame(date, this.options.currentDate), 'selected');
-        this.calendar.on('click', date => {
-            this.selectDate(date);
-            this.calendar.applyDecorators();
-        });
+        this.calendar.on('click', date => this.selectDate(date));
     }
 
     setupDatePicker() {
@@ -89,6 +86,7 @@ export class DatePicker {
         if (isSame(date, this.options.currentMonth, 'year month')) {
             this.options.currentDate = date;
             this.updateInputValue();
+            this.calendar.applyDecorators();
         }
     }
 
@@ -151,6 +149,9 @@ export class DatePickerRange {
     onLeftSelectDate(date) {
         this.leftDatePicker.hide();
         this.rightDatePicker.show();
+        if (this.rightDatePicker.options.currentDate <  this.leftDatePicker.options.currentDate) {
+            this.rightDatePicker.selectDate(this.leftDatePicker.options.currentDate);
+        }
     }
 
     onRightSelectDate(date) {
