@@ -54,19 +54,19 @@
     cursor: pointer;
 }
 
+.calendar span.range,
+.calendar span.enabled:hover {
+    background-color: #ffffff;
+    border: 1px solid #ff690f;
+    color: #ff690f;
+}
+
 .calendar span.disabled,
 .calendar span.disabled:hover {
     background-color: #ffffff;
     color: #cccccc;
     border: 1px solid #ffffff;
     cursor: default;
-}
-
-.calendar span.range,
-.calendar span.enabled:hover {
-    background-color: #ffffff;
-    border: 1px solid #ff690f;
-    color: #ff690f;
 }
 
 .calendar span.selected,
