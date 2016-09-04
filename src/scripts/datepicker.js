@@ -152,6 +152,7 @@ export class DatePickerRange {
         if (rightDate < leftDate) {
             this.rightDatePicker.options.currentMonth = leftDate;
             this.rightDatePicker.options.currentDate = leftDate;
+            this.rightDatePicker.updateInputValue();
             this.rightDatePicker.draw();
         }
         this.leftDatePicker.hide();
