@@ -147,11 +147,15 @@ export class DatePickerRange {
     }
 
     onLeftSelectDate(date) {
+        let leftDate = this.leftDatePicker.options.currentDate;
+        let rightDate = this.rightDatePicker.options.currentDate;
+        if (rightDate < leftDate) {
+            this.rightDatePicker.options.currentMonth = leftDate;
+            this.rightDatePicker.options.currentDate = leftDate;
+            this.rightDatePicker.draw();
+        }
         this.leftDatePicker.hide();
         this.rightDatePicker.show();
-        if (this.rightDatePicker.options.currentDate <  this.leftDatePicker.options.currentDate) {
-            this.rightDatePicker.selectDate(this.leftDatePicker.options.currentDate);
-        }
     }
 
     onRightSelectDate(date) {
@@ -160,12 +164,9 @@ export class DatePickerRange {
     }
 
     setupDecorators() {
-        let rangeDisableLeftDecorator = (date) => this.rightDateSelected &&
-                                         date > this.rightDatePicker.options.currentDate;
         let rangeDisableRightDecorator = (date) => date < this.leftDatePicker.options.currentDate;
         let rangeDecorator = (date) => date >= this.leftDatePicker.options.currentDate &&
                                        date <= this.rightDatePicker.options.currentDate;
-        this.leftDatePicker.calendar.addDecorator(rangeDisableLeftDecorator, 'disabled');
         this.rightDatePicker.calendar.addDecorator(rangeDisableRightDecorator, 'disabled');
         this.leftDatePicker.calendar.addDecorator(rangeDecorator, 'range');
         this.rightDatePicker.calendar.addDecorator(rangeDecorator, 'range');
