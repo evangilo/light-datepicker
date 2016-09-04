@@ -1,6 +1,6 @@
 .datepicker {
-	position: absolute;
-	width: 260px;
+    position: absolute;
+    width: 260px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     padding: 15px;
     z-index: 9999;
@@ -31,21 +31,21 @@
 
 .datepicker .weekdays span,
 .datepicker .calendar span {
-	display: inline-block;
-	background-color: #ffffff;
-	text-align: center;
+    display: inline-block;
+    background-color: #ffffff;
+    text-align: center;
     text-transform: capitalize;
-	margin: 3px;
-	padding: 5px;
-	border: 1px solid #ffffff;
-	width: calc(1 / 7 * 100% - 18px);
+    margin: 3px;
+    padding: 5px;
+    border: 1px solid #ffffff;
+    width: calc(1 / 7 * 100% - 18px);
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
 }
 
 .calendar span.out-month {
-	visibility: hidden;
+    visibility: hidden;
 }
 
 .calendar span.enabled {
@@ -56,10 +56,10 @@
 
 .calendar span.disabled,
 .calendar span.disabled:hover {
-	background-color: #ffffff;
-	color: #cccccc;
-	border: 1px solid #ffffff;
-	cursor: default;
+    background-color: #ffffff;
+    color: #cccccc;
+    border: 1px solid #ffffff;
+    cursor: default;
 }
 
 .calendar span.range,
@@ -78,16 +78,16 @@
 
 .datepicker .header {
     display: flex;
-	flex-direction: row;
+    flex-direction: row;
     justify-content: space-between;
     line-height: 28px;
 }
 
 .datepicker .header .prev,
 .datepicker .header .next {
-	background-color: transparent;
-	border: none;
-	font-size: 1.5em;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5em;
     font-weight: 900;
     padding: 0;
     cursor: pointer;
@@ -96,11 +96,11 @@
 
 .datepicker .header .prev:hover,
 .datepicker .header .next:hover {
-	color: #ff690f;
-	cursor: pointer;
+    color: #ff690f;
+    cursor: pointer;
 }
 
 .datepicker .header .prev.disabled,
 .datepicker .header .next.disabled {
-	visibility: hidden;
+    visibility: hidden;
 }
