@@ -6,6 +6,8 @@ import { createNode } from './util';
 const LANGUAGE = window.navigator.language;
 const WEEKDAYS = 'sun_mon_tue_wed_thu_fri_sat'.split('_');
 
+const doc = window.document;
+
 export class DatePicker {
 
     constructor(options) {
@@ -29,16 +31,17 @@ export class DatePicker {
     }
 
     setupParentElement() {
-        this.parentElement = document.querySelector(this.options.selector);
+        this.parentElement = doc.querySelector(this.options.selector);
         this.parentElement.addEventListener('focus', event => this.show());
     }
 
     setupCalendar() {
-        this.calendar = new Calendar(this.options.weekdays);
-        this.calendar.addDecorator(date => !isSame(date, this.options.currentMonth, 'year month'), 'out-month');
-        this.calendar.addDecorator(date => isSame(date, this.options.currentMonth, 'year month'), 'enabled');
-        this.calendar.addDecorator(date => isSame(date, this.options.currentDate), 'selected');
-        this.calendar.on('clickDate', event => this.selectDate(event.detail));
+        let options = this.options;
+        this.calendar = new Calendar(options.weekdays);
+        this.calendar.addDecorator(date => !isSame(date, options.currentMonth, 'year month'), 'out-month');
+        this.calendar.addDecorator(date => isSame(date, options.currentMonth, 'year month'), 'enabled');
+        this.calendar.addDecorator(date => isSame(date, options.currentDate), 'selected');
+        this.calendar.on('click', date => this.selectDate(date));
     }
 
     setupDatePicker() {
@@ -54,8 +57,8 @@ export class DatePicker {
         this.datepicker.querySelector('.prev').addEventListener('click', event => this.onClickPrevMonth());
         this.datepicker.querySelector('.next').addEventListener('click', event => this.onClickNextMonth());
 
-        document.querySelector(this.options.appendTo).appendChild(this.datepicker);
-        document.addEventListener('click', event => {
+        doc.querySelector(this.options.appendTo).appendChild(this.datepicker);
+        doc.addEventListener('click', event => {
             let target = event.target;
             let isOutsideClick = this.isOpened &&
                                 !this.parentElement.isEqualNode(target) &&
@@ -70,9 +73,7 @@ export class DatePicker {
     show() {
         let parentOffset = this.parentElement.getBoundingClientRect();
         this.isOpened = true;
-        this.datepicker.style.display = 'block';
-        this.datepicker.style.top = `${parentOffset.top + 55}px`;
-        this.datepicker.style.left = `${parentOffset.left}px`;
+        this.datepicker.style.cssText = `display: block; top: ${(parentOffset.top + 55)}px; left: ${parentOffset.left}px;`;
         this.calendar.applyDecorators();
     }
 
@@ -84,41 +85,46 @@ export class DatePicker {
     }
 
     selectDate(date) {
-        if (isSame(date, this.options.currentMonth, 'year month')) {
-            this.options.currentDate = date;
+        let options = this.options;
+        if (isSame(date, options.currentMonth, 'year month')) {
+            options.currentDate = date;
             this.updateInputValue();
             this.calendar.applyDecorators();
         }
     }
 
     updateInputValue() {
-        if (!this.options.updateInput) {
+        let options = this.options;
+        if (!options.updateInput) {
             return;
         }
-        let date = this.options
-                       .currentDate
-                       .toLocaleDateString(this.options.language, {
-                            weekday: 'short',
-                            day: 'numeric',
-                            month: 'numeric'
-                        });
+        let date = options
+                   .currentDate
+                   .toLocaleDateString(options.language, {
+                        weekday: 'short',
+                        day: 'numeric',
+                        month: 'numeric'
+                    });
         this.parentElement.value = date;
     }
 
     onClickPrevMonth() {
-        this.options.currentMonth = prevMonth(this.options.currentMonth);
+        let options = this.options;
+        options.currentMonth = prevMonth(options.currentMonth);
         this.draw();
     }
 
     onClickNextMonth() {
-        this.options.currentMonth = nextMonth(this.options.currentMonth);
+        let options = this.options;
+        options.currentMonth = nextMonth(options.currentMonth);
         this.draw();
     }
 
     updateTitle() {
-        let title = this.options
+        let options = this.options;
+        let title = options
                         .currentMonth
-                        .toLocaleDateString(this.options.language, {
+                        .toLocaleDateString(options.language, {
                             month : 'long',
                             year : 'numeric'
                         });
@@ -129,48 +135,4 @@ export class DatePicker {
         this.updateTitle();
         this.calendar.draw(this.options.currentMonth);
     }
-}
-
-export class DatePickerRange {
-
-    constructor(options) {
-        this.rightDateSelected = false;
-
-        this.leftDatePicker = new DatePicker({ ...options, ...{ selector: options.leftSelector } });
-        this.rightDatePicker = new DatePicker({ ...options, ...{ selector: options.rightSelector } });
-        this.leftDatePicker.calendar.on('clickDate', event => this.onLeftSelectDate(event.detail));
-        this.rightDatePicker.calendar.on('clickDate', event => this.onRightSelectDate(event.detail));
-
-        this.rightDatePicker.parentElement.addEventListener('focus', e => this.leftDatePicker.hide());
-        this.leftDatePicker.parentElement.addEventListener('focus', e => this.rightDatePicker.hide());
-
-        this.setupDecorators();
-    }
-
-    onLeftSelectDate(date) {
-        let leftDate = this.leftDatePicker.options.currentDate;
-        let rightDate = this.rightDatePicker.options.currentDate;
-        if (rightDate < leftDate) {
-            this.rightDatePicker.options.currentMonth = leftDate;
-            this.rightDatePicker.options.currentDate = leftDate;
-            this.rightDatePicker.updateInputValue();
-            this.rightDatePicker.draw();
-        }
-        this.leftDatePicker.hide();
-        this.rightDatePicker.show();
-    }
-
-    onRightSelectDate(date) {
-        this.rightDatePicker.hide(300);
-        this.rightDateSelected = true;
-    }
-
-    setupDecorators() {
-        let rangeDisableRightDecorator = (date) => date < this.leftDatePicker.options.currentDate;
-        let rangeDecorator = (date) => date >= this.leftDatePicker.options.currentDate &&
-                                       date <= this.rightDatePicker.options.currentDate;
-        this.rightDatePicker.calendar.addDecorator(rangeDisableRightDecorator, 'disabled');
-        this.leftDatePicker.calendar.addDecorator(rangeDecorator, 'range');
-        this.rightDatePicker.calendar.addDecorator(rangeDecorator, 'range');
-    }
-}
+};

@@ -1,5 +1,6 @@
 import { Calendar } from './calendar';
-import { DatePicker, DatePickerRange } from './datepicker';
+import { DatePicker } from './datepicker';
+import { DatePickerRange } from './datepickerRange';
 
 export {
     Calendar,
