@@ -4,12 +4,6 @@ export class DatePickerRange {
 
     constructor(options) {
         this.rightDateSelected = false;
-        this.options = options || {
-            language: 'pt-BR',
-            leftSelector: '#left-datepicker',
-            rightSelector: '#right-datepicker',
-            appendTo: '.jumbotron'
-        };
 
         this.leftDatePicker = new DatePicker({ ...this.options, ...{ selector: options.leftSelector } });
         this.rightDatePicker = new DatePicker({ ...this.options, ...{ selector: options.rightSelector } });
