@@ -26,21 +26,19 @@ export class Calendar {
 
     createDateNode() {
         let node = createNode('span', '');
-        node.addEventListener('click', (event) => this.emit('click', node));
-        node.addEventListener('mouseover', (event) => this.emit('mouseover', node));
+        node.addEventListener('click', (event) => this.emit('clickDate', node));
+        node.addEventListener('mouseover', (event) => this.emit('hoverDate', node));
         return node;
     }
 
-    on(event, callback) {
-        if (typeof event === 'string' && typeof callback === 'function') {
-            this.listeners.push({ event: event, callback: callback });
-        }
+    on(eventName, callback) {
+        this.container.addEventListener(eventName, callback);
     }
 
-    emit(event, node) {
+    emit(eventName, node) {
         if (!node.classList.contains('disabled')) {
-            this.listeners.filter((listener) => listener.event === event)
-                          .some((listener) => listener.callback(node.date));
+            const event = new CustomEvent(eventName, { detail: node.date });
+            this.container.dispatchEvent(event);
         }
     }
 

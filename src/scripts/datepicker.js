@@ -38,7 +38,7 @@ export class DatePicker {
         this.calendar.addDecorator(date => !isSame(date, this.options.currentMonth, 'year month'), 'out-month');
         this.calendar.addDecorator(date => isSame(date, this.options.currentMonth, 'year month'), 'enabled');
         this.calendar.addDecorator(date => isSame(date, this.options.currentDate), 'selected');
-        this.calendar.on('click', date => this.selectDate(date));
+        this.calendar.on('clickDate', event => this.selectDate(event.detail));
     }
 
     setupDatePicker() {
@@ -138,8 +138,8 @@ export class DatePickerRange {
 
         this.leftDatePicker = new DatePicker({ ...options, ...{ selector: options.leftSelector } });
         this.rightDatePicker = new DatePicker({ ...options, ...{ selector: options.rightSelector } });
-        this.leftDatePicker.calendar.on('click', (date) => this.onLeftSelectDate(date));
-        this.rightDatePicker.calendar.on('click', (date) => this.onRightSelectDate(date));
+        this.leftDatePicker.calendar.on('clickDate', event => this.onLeftSelectDate(event.detail));
+        this.rightDatePicker.calendar.on('clickDate', event => this.onRightSelectDate(event.detail));
 
         this.rightDatePicker.parentElement.addEventListener('focus', e => this.leftDatePicker.hide());
         this.leftDatePicker.parentElement.addEventListener('focus', e => this.rightDatePicker.hide());
