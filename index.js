@@ -6,12 +6,12 @@ var range = new datepicker.DatePickerRange({
     appendTo: '.jumbotron'
 });
 
-single.calendar.on('click', function(date) {
-    console.log('single', date);
+single.calendar.on('clickDate', function(event) {
+    console.log('single', event);
 });
-range.leftDatePicker.calendar.on('click', function(date) {
-    console.log('left', date);
+range.leftDatePicker.calendar.on('clickDate', function(event) {
+    console.log('left', event);
 });
-range.rightDatePicker.calendar.on('click', function(date) {
-    console.log('right', date);
+range.rightDatePicker.calendar.on('clickDate', function(event) {
+    console.log('right', event);
 });
