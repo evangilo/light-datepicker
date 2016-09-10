@@ -3,7 +3,7 @@
 > Ultra light and minimalist Datepicker with zero dependencies.
 
 ## Preview
-![Screenshot](https://github.com/evangilo/datepicker/art/datepicker.gif)
+![Screenshot](https://raw.githubusercontent.com/evangilo/light-datepicker/master/screenshots/datepicker.gif)
 
 
 ## Install
