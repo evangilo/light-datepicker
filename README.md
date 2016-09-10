@@ -3,7 +3,13 @@
 > Ultra light and minimalist Datepicker with zero dependencies.
 
 ## Preview
-![Screenshot](https://github.com/evangilo/datepicker/src/screenshot.gif)
+![Screenshot](https://github.com/evangilo/datepicker/art/datepicker.gif)
+
+
+## Install
+```
+npm install light-datepicker
+```
 
 ## Basic Usage
 
@@ -18,9 +24,9 @@ const range = new datepicker.DatePickerRange({
     appendTo: '.jumbotron'
 });
 
-single.calendar.on('click', date => console.log('single', date));
-range.leftDatePicker.calendar.on('click', date => console.log('left', date));
-range.rightDatePicker.calendar.on('click', date => console.log('right', date));
+single.calendar.on('clickDate', date => console.log('single', date));
+range.leftDatePicker.calendar.on('clickDate', date => console.log('left', date));
+range.rightDatePicker.calendar.on('clickDate', date => console.log('right', date));
 ```
 
 ```HTML
@@ -61,6 +67,7 @@ range.rightDatePicker.calendar.on('click', date => console.log('right', date));
 <script src="datepicker.min.js"></script>
 ```
 
+
 ## Run
 ```
 git clone git@github.com:evangilo/datepicker.git
@@ -73,7 +80,7 @@ npm start
 Open url in your browser: http://localhost:8080
 
 License
-Datepicker Light is released under the MIT License. See [LICENSE](https://github.com/evangilo/datepicker/LICENCESE.md) file for details.
+Light Datepicker is released under the MIT License. See [LICENSE](https://github.com/evangilo/datepicker/LICENCESE.md) file for details.
 
 ## Browser Support
 
