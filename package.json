@@ -1,7 +1,7 @@
 {
-  "name": "datepicker",
+  "name": "light-datepicker",
   "version": "0.1.1",
-  "description": "DatePicker",
+  "description": "Light DatePicker",
   "scripts": {
     "start": "webpack-dev-server --inline  --hot --content-base ./"
   },
@@ -21,5 +21,18 @@
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.14.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evangilo/light-datepicker.git"
+  },
+  "keywords": [
+    "Calendar",
+    "DatePicker",
+    "DateRangePicker"
+  ],
+  "bugs": {
+    "url": "https://github.com/evangilo/light-datepicker/issues"
+  },
+  "homepage": "https://github.com/evangilo/light-datepicker#readme"
 }
