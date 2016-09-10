@@ -36,7 +36,7 @@ range.rightDatePicker.calendar.on('clickDate', event => console.log('right:date'
 
 ## Run Example
 ```
-git clone git@github.com:evangilo/light-datepicker.git
+git clone https://github.com/evangilo/light-datepicker.git
 
 npm install
 
