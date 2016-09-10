@@ -13,7 +13,7 @@ npm install light-datepicker --save
 
 ## Basic Usage
 
-```
+```HTML
 // HTML
 <link rel="stylesheet" type="text/css" href="node_modules/light-datepicker/dist/datepicker.min.css">
 
