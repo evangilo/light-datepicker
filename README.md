@@ -14,7 +14,7 @@ npm install light-datepicker --save
 ## Basic Usage
 
 ```
-//HTML
+// HTML
 <link rel="stylesheet" type="text/css" href="node_modules/light-datepicker/dist/datepicker.min.css">
 
 <script src="node_modules/light-datepicker/dist/datepicker.min.js"></script>
@@ -34,7 +34,7 @@ range.leftDatePicker.calendar.on('clickDate', event => console.log('left:date', 
 range.rightDatePicker.calendar.on('clickDate', event => console.log('right:date', event.detail));
 ```
 
-## Run
+## Run Example
 ```
 git clone git@github.com:evangilo/light-datepicker.git
 
