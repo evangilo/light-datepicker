@@ -8,10 +8,17 @@
 
 ## Install
 ```
-npm install light-datepicker
+npm install light-datepicker --save
 ```
 
 ## Basic Usage
+
+```
+//HTML
+<link rel="stylesheet" type="text/css" href="node_modules/light-datepicker/dist/datepicker.min.css">
+
+<script src="node_modules/light-datepicker/dist/datepicker.min.js"></script>
+```
 
 ```JS
 // Javascript
@@ -29,7 +36,7 @@ range.rightDatePicker.calendar.on('clickDate', event => console.log('right:date'
 
 ## Run
 ```
-git clone git@github.com:evangilo/datepicker.git
+git clone git@github.com:evangilo/light-datepicker.git
 
 npm install
 
@@ -39,7 +46,7 @@ npm start
 Open url in your browser: http://localhost:8080
 
 License
-Light Datepicker is released under the MIT License. See [LICENSE](https://github.com/evangilo/datepicker/LICENCESE.md) file for details.
+Light Datepicker is released under the MIT License. See [LICENSE](https://github.com/evangilo/light-datepicker/blob/master/LICENSE.md) file for details.
 
 ## Browser Support
 
