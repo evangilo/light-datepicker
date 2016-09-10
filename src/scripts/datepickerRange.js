@@ -7,8 +7,8 @@ export class DatePickerRange {
 
         this.leftDatePicker = new DatePicker({ ...this.options, ...{ selector: options.leftSelector } });
         this.rightDatePicker = new DatePicker({ ...this.options, ...{ selector: options.rightSelector } });
-        this.leftDatePicker.calendar.on('click', (date) => this.onLeftSelectDate(date));
-        this.rightDatePicker.calendar.on('click', (date) => this.onRightSelectDate(date));
+        this.leftDatePicker.calendar.on('clickDate', (event) => this.onLeftSelectDate(event.detail));
+        this.rightDatePicker.calendar.on('clickDate', (event) => this.onRightSelectDate(event.detail));
 
         this.rightDatePicker.parentElement.addEventListener('focus', e => this.leftDatePicker.hide());
         this.leftDatePicker.parentElement.addEventListener('focus', e => this.rightDatePicker.hide());

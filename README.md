@@ -18,55 +18,14 @@ npm install light-datepicker
 const single = new datepicker.DatePicker({ selector: '#datepicker' });
 
 const range = new datepicker.DatePickerRange({
-    language: 'pt-BR',
     leftSelector: '#left-datepicker',
     rightSelector: '#right-datepicker',
-    appendTo: '.jumbotron'
 });
 
-single.calendar.on('clickDate', date => console.log('single', date));
-range.leftDatePicker.calendar.on('clickDate', date => console.log('left', date));
-range.rightDatePicker.calendar.on('clickDate', date => console.log('right', date));
+single.calendar.on('clickDate', event => console.log('single:date', event.detail));
+range.leftDatePicker.calendar.on('clickDate', event => console.log('left:date', event.detail));
+range.rightDatePicker.calendar.on('clickDate', event => console.log('right:date', event.detail));
 ```
-
-```HTML
-<!-- HTML DatePicker Structure -->
-<div class="row">
-    <div class="form-group">
-        <label>DatePicker</label>
-        <div class="input-group col-sm-2">
-            <input class="form-control" type="text" id="datepicker">
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-            </span>
-        </div>
-    </div>
-</div>
-
-<!-- HTML DatePicker Range Structure -->
-<div class="row">
-    <div class="form-group">
-        <label>DatePickerRange</label>
-        <div class="form-inline">
-            <div class="input-group col-sm-2">
-                <input class="form-control" type="text" id="left-datepicker">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-            <div class="input-group col-sm-2">
-                <input class="form-control" type="text" id="right-datepicker">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="datepicker.min.js"></script>
-```
-
 
 ## Run
 ```
