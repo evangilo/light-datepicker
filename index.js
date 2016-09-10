@@ -6,6 +6,6 @@ const range = new datepicker.DatePickerRange({
     appendTo: '.jumbotron'
 });
 
-single.calendar.on('click', date => console.log('single', date));
-range.leftDatePicker.calendar.on('click', date => console.log('left', date));
-range.rightDatePicker.calendar.on('click', date => console.log('right', date));
+single.calendar.on('clickDate', event => console.log('single:date', event.detail));
+range.leftDatePicker.calendar.on('clickDate', event => console.log('left:date', event.detail));
+range.rightDatePicker.calendar.on('clickDate', event => console.log('right:date', event.detail));
