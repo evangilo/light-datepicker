@@ -7,21 +7,31 @@ import {
     isSame
 } from './date';
 
+const MAXIMUM_NUMBER_OF_DAYS = 42;
+
 export class Calendar {
     constructor(weekdays) {
         this.decorators = [];
         this.listeners = [];
         this.container = createNode('div', 'calendar', null);
-        this.nodes = new Array(42);
+        this.nodes = new Array(MAXIMUM_NUMBER_OF_DAYS);
+        this.weekdays = weekdays;
 
-        for (var weekday of weekdays) {
-            let node = createNode('span', 'weekday', weekday);
-            this.container.appendChild(node);
+        this.render();
+    }
+
+    render() {
+        let container = this.container;
+        let nodes = this.nodes;
+        this.weekdays.forEach(weekday => container.appendChild(createNode('span', 'weekday', weekday)));
+
+        let fragment = document.createDocumentFragment();
+        // TODO: Evited assign and use immutability
+        for (let i = 0; i < MAXIMUM_NUMBER_OF_DAYS; i++) {
+            nodes[i] = this.createDateNode();
+            fragment.appendChild(nodes[i]);
         }
-        for (var i = 0; i < 42; i++) {
-            this.nodes[i] = this.createDateNode();
-            this.container.appendChild(this.nodes[i]);
-        }
+        container.appendChild(fragment);
     }
 
     createDateNode() {
@@ -72,7 +82,8 @@ export class Calendar {
 
     draw(date) {
         let dates = this.datesOfCalendar(date);
-        this.nodes.some((node, index) => {
+        // TODO: Evited assign and use immutability
+        this.nodes.forEach((node, index) => {
             node.date = dates[index];
             node.innerText = dates[index].getDate();
         });
