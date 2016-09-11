@@ -43,7 +43,7 @@ npm install
 npm start
 ```
 
-Open url in your browser: http://localhost:8080
+Open url in your browser: http://localhost:8080/example/
 
 License
 Light Datepicker is released under the MIT License. See [LICENSE](https://github.com/evangilo/light-datepicker/blob/master/LICENSE.md) file for details.

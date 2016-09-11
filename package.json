@@ -2,11 +2,11 @@
   "name": "light-datepicker",
   "version": "0.1.1",
   "description": "Light DatePicker",
+  "main": "index",
   "scripts": {
-    "start": "webpack-dev-server --inline  --hot --content-base ./"
+    "start": "webpack-dev-server --inline  --hot --content-base ./",
+    "build": "webpack"
   },
-  "author": "Evangilo Morais",
-  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "babel-core": "^6.11.4",
@@ -26,6 +26,9 @@
     "type": "git",
     "url": "git+https://github.com/evangilo/light-datepicker.git"
   },
+  "author": "Evangilo Morais",
+  "email": "evangilo@gmail.com",
+  "license": "MIT",
   "keywords": [
     "Calendar",
     "DatePicker",
