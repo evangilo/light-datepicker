@@ -10,21 +10,17 @@ import {
 const MAXIMUM_NUMBER_OF_DAYS = 42;
 
 export class Calendar {
-    constructor(weekdays) {
+    constructor() {
         this.decorators = [];
         this.listeners = [];
         this.container = createNode('div', 'calendar', null);
         this.nodes = new Array(MAXIMUM_NUMBER_OF_DAYS);
-        this.weekdays = weekdays;
-
         this.render();
     }
 
     render() {
         let container = this.container;
         let nodes = this.nodes;
-        this.weekdays.forEach(weekday => container.appendChild(createNode('span', 'weekday', weekday)));
-
         let fragment = document.createDocumentFragment();
         // TODO: Evited assign and use immutability
         for (let i = 0; i < MAXIMUM_NUMBER_OF_DAYS; i++) {
