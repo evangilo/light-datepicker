@@ -31,6 +31,11 @@
     box-shadow: 3px -3px 3px 0 rgba(0, 0, 0, 0.15);
 }
 
+.datepicker .days {
+    display: inline;
+    padding: 0;
+}
+
 .datepicker .weekdays {
     width: 260px;
 }
@@ -46,10 +51,6 @@
     padding: 5px;
     border: 1px solid #ffffff;
     width: calc(1 / 7 * 100% - 18px);
-}
-
-.datepicker .weekdays span {
-    padding: 0 !important;
 }
 
 .calendar span.out-month {
