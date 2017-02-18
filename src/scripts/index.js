@@ -3,7 +3,7 @@ import { DatePicker } from './datepicker';
 import { DatePickerRange } from './datepickerRange';
 
 export {
-    Calendar,
-    DatePicker,
-    DatePickerRange
+  Calendar,
+  DatePicker,
+  DatePickerRange
 };
