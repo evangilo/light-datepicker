@@ -25,3 +25,16 @@ export function isSame(date, other, filter='year month day') {
     (!filter.includes('month') || date.getMonth() === other.getMonth()) &&
     (!filter.includes('day') || date.getDate() === other.getDate())
 }
+
+export function getCalendarDates(date) {
+  const month = datesInMonth(date);
+  const leftPadding = startMonth(date).getDay() || 7;
+  const paddingLeftItems = datesInMonth(prevMonth(date))
+    .reverse()
+    .slice(0, leftPadding)
+    .reverse();
+  const paddingRightItems = datesInMonth(nextMonth(date))
+    .slice(0, 42 - leftPadding - month.length);
+  return [...paddingLeftItems, ...month, ...paddingRightItems];
+};
+

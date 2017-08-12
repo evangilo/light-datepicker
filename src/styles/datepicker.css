@@ -52,7 +52,7 @@
   width: calc(1 / 7 * 100% - 18px);
 }
 
-.datepicker .header {
+/*.datepicker .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -88,7 +88,7 @@
 .datepicker .header .next.disabled {
   visibility: hidden;
 }
-
+*/
 .calendar span.out-month {
   visibility: hidden;
 }
@@ -115,8 +115,38 @@
 }
 
 .calendar span.selected,
-.calendar span.selected:hover {
-  background-color: #ff690f;
+.calendar span.selected:hover,
+.calendar .today {
+  background-color: #ff690f !important;
   color: #fff;
   font-weight: 600;
 }
+
+.header {
+	display: flex;
+}
+
+.header .title {
+  display: flex;
+	flex-grow: 1;
+  align-items: center;
+	justify-content: center;
+}
+
+.header .button {
+  display: flex;
+  width: 30px;
+	height: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+	cursor: pointer;
+}
+
+.prev-month {
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAOUlEQVR4AWMYxqABCElS/p/hN4MWacpDSFMeSlPlYaQo/0OScnyQYg0IJ4XjcsLI0KJFmpa64Zt3AdTaQlFOlKYFAAAAAElFTkSuQmCC')
+}
+
+.next-month {
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAOUlEQVR4AWMYxqCRoYEU5boMfxj+k6YlgnQtkXTREkW6lmjcWv7jhQ3kayDspGGrnPLE1wCEwxYAABNmQoikBfhoAAAAAElFTkSuQmCC')
+}
+
