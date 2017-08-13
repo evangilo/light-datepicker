@@ -1,9 +1,8 @@
 import '../styles/datepicker.css'
-import { getCalendar } from './calendar-v2';
-import { getCalendarDates, prevMonth, nextMonth, isSame } from './date';
+import { getCalendarDates, prevMonth, nextMonth } from './date';
 import { createNode, noop } from './util';
 
-const LANGUAGE = window.navigator.language;
+const LANGUAGE = 'en-US';
 const WEEKDAYS = 'sun_mon_tur_wed_thu_fri_sat'.split('_');
 const TEMPLATE = 
  `<div class="header">
@@ -14,29 +13,12 @@ const TEMPLATE =
   <div class="weekdays"></div>
   <div class="calendar"></div>`;
 
-const doc = window.document;
-
 function getCalendarTitle(date, language) {
   return date.toLocaleDateString(language, {
     month: 'long',
     year: 'numeric'
   });
 }
-
-const todayDecorator = {
-  condition: (date) => isSame(date, new Date()),
-  className: 'today'
-};
-
-const outCurrentMonthDecorator = {
-  condition: (date, currentDate, currentMonth) => !isSame(date, currentMonth, 'year month'),
-  className: 'out-month'
-};
-
-const selectedDecorator = {
-  condition: (date, currentDate, currentMonth) => isSame(date, currentDate),
-  className: 'selected'
-};
 
 export default class DatePickerV2 {
   constructor(options) {
@@ -49,69 +31,43 @@ export default class DatePickerV2 {
     };
     this.options = { ...this.options, ...options };
     this.currentMonth = this.options.date;
-    this.decorators = [ todayDecorator, selectedDecorator, outCurrentMonthDecorator ];
+    this.decorators = [];
 
-    this.element = createNode('div', 'datepicker', this.options.template);
-    this.element.addEventListener('click', e => this.onClickListener(e));
+    this.container = createNode('div', 'datepicker', this.options.template);
+    this.container.addEventListener('click', e => this.onClickListener(e));
     
-    this.updateCalendar(this.options.date);
-    this.updateWeekDays(this.options.weekdays);
+    this.setWeekDays(this.options.weekdays);
+    this.drawCalendar(this.options.date);
   }
 
-  updateWeekDays(weekdays) {
-    const elem = this.element.querySelector('.weekdays');
+  setWeekDays(weekdays) {
+    const elem = this.container.querySelector('.weekdays');
+    elem.innerHTML = '';
     weekdays.forEach(weekday => elem.appendChild(createNode('span', 'weekday', weekday)));
   }
-
-  updateCalendar(date) {
-    this.updateTitle(date);
-    this.updateCalendarDates(date);
-    this.applyDecorators();
+ 
+  setCurrentMonth(date) {
+    this.currentMonth = date;
   }
 
-  updateCalendarDates(date) {
+  setTitle(date) {
+    const title = this.container.querySelector('.title');
+    title.innerText = this.options.getTitle(date, this.options.language);
+  }
+
+  setCalendarDates(date) {
     const dates = getCalendarDates(date);
-    const calendar = this.element.querySelector('.calendar');
+    const calendar = this.container.querySelector('.calendar');
     calendar.innerHTML = '';
     dates.forEach(d => calendar.appendChild(createNode('span', 'calendar-date', d.getDate(), d)));
   }
 
-  updateTitle(date) {
-    const title = this.element.querySelector('.title');
-    title.innerText = this.options.getTitle(date, this.options.language);
-  }
-
-  updateCurrentMonth(date) {
-    this.currentMonth = date;
-    this.updateCalendar(date);
-  }
-
-  onClickListener(event) {
-    const events = {
-      'calendar-date': (date) => this.onDateClickListener(date),
-      'prev-month': () => this.updateCurrentMonth(prevMonth(this.currentMonth)),
-      'next-month': () => this.updateCurrentMonth(nextMonth(this.currentMonth))
-    };
-    const key = Object.keys(events).find(k => event.target.classList.contains(k));
-    (events[key] || noop)(event.target.value);
-  };
-
-  onDateClickListener(date) {
+  setDate(date) {
     this.options.date = date;
-    this.element.dispatchEvent(new CustomEvent('OnClickDate', { detail: date }));
-  }
-
-  addEventListener(eventName, callback) {
-    this.element.addEventListener(eventName, callback);
-  }
-
-  addDecorator(decorator) {
-    this.decorators.push(decorator);
-    this.applyDecorators();
   }
 
   applyDecorators() {
-    const nodes = this.element.querySelectorAll('.calendar-date');
+    const nodes = this.container.querySelectorAll('.calendar-date');
 
     nodes.forEach(node => {
       this.decorators.forEach(decorator => {
@@ -120,6 +76,35 @@ export default class DatePickerV2 {
           : node.classList.remove(decorator.className)
       });
     });
+  }
+
+
+  drawCalendar(date) {
+    this.setCurrentMonth(date);
+    this.setTitle(date);
+    this.setCalendarDates(date);
+    this.applyDecorators();
+  }
+
+  onDateClickListener(date) {
+    this.options.date = date;
+    this.container.dispatchEvent(new CustomEvent('OnClickDate', { detail: date }));
+    this.applyDecorators();
+  }
+
+  onClickListener(event) {
+    const events = {
+      'calendar-date': (date) => this.onDateClickListener(date),
+      'prev-month': () => this.drawCalendar(prevMonth(this.currentMonth)),
+      'next-month': () => this.drawCalendar(nextMonth(this.currentMonth))
+    };
+    const key = Object.keys(events).find(k => event.target.classList.contains(k));
+    (events[key] || noop)(event.target.value);
+  };
+
+  addDecorator(decorator) {
+    this.decorators.push(decorator);
+    this.applyDecorators();
   }
 }
 
