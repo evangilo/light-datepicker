@@ -1,159 +1,129 @@
 import '../styles/datepicker.css';
-import { Calendar } from './calendar';
-import { isSame, prevMonth, nextMonth } from './date';
-import { createNode } from './util';
+
+import { reserve } from './util';
+import { appendChildList, createDiv, createEvent, removeContent  } from './dom';
+import {
+  getWeekDayNames,
+  getMonthName,
+  nextMonth,
+  prevMonth,
+  calendarDays
+} from './date';
 
 const LANGUAGE = window.navigator.language;
-const WEEKDAYS = 'sun_mon_tue_wed_thu_fri_sat'.split('_');
-const TEMPLATE =
-  `<div class="arrow"></div>
-    <div class="header">
-      <span class="prev"></span>
-      <span class="title"></span>
-      <span class="next"></span>
-    </div>
-    <div class="weekdays"></div>
-  <div class="days"></div>`;
 
-const doc = window.document;
+const TEMPLATE =
+ `<div class="header">
+    <span class="prev"></span>
+    <span class="title"></span>
+    <span class="next"></span>
+  </div>
+  <div class="weekdays"></div>
+  <div class="calendar"></div>`;
 
 export class DatePicker {
-
   constructor(options) {
-    this.options = {
-      currentDate: new Date(),
-      selector: null,
-      updateInput: true,
-      language: 'en-Us',
-      appendTo: 'body',
+    const initialState = {
+      date: new Date(),
+      month: new Date(),
       language: LANGUAGE,
-      weekdays: WEEKDAYS,
       template: TEMPLATE,
-      formatInputDate: date => this.formatInputDate(date),
-      formatTitleDate: date => this.formatTitleDate(date)
+      className: 'datepicker'
     };
-    this.options = { ...this.options, ...options };
-    this.options.currentMonth = Object.assign(this.options.currentDate);
+    this.options = { ...initialState, ...options };
 
-    this.setupParentElement();
-    this.updateInputDate(this.options.currentDate);
-    this.setupCalendar();
-    this.setupDatePicker();
-    this.setupOutClick();
-    this.draw();
-    this.hide();
-  }
-
-  setupParentElement() {
-    this.parentElement = doc.querySelector(this.options.selector);
-    this.parentElement.addEventListener('focus', event => this.show());
-  }
-
-  setupCalendar() {
-    let options = this.options;
-    this.calendar = new Calendar(options.weekdays);
-    this.calendar.addDecorator(date => !isSame(date, options.currentMonth, 'year month'), 'out-month');
-    this.calendar.addDecorator(date => isSame(date, options.currentMonth, 'year month'), 'enabled');
-    this.calendar.addDecorator(date => isSame(date, options.currentDate), 'selected');
-    this.calendar.on('clickDate', event => this.selectDate(event.detail));
-  }
-
-  setupDatePicker() {
-    this.datepicker = createNode('div', 'datepicker', this.options.template);
-    this.datepicker.querySelector('.days').appendChild(this.calendar.container);
-    this.datepicker.querySelector('.prev').addEventListener('click', event => this.onClickPrevMonth());
-    this.datepicker.querySelector('.next').addEventListener('click', event => this.onClickNextMonth());
-    this.datepicker.style.display = 'none';
-
-    let weekdays = this.datepicker.querySelector('.weekdays');
-    for (let weekday of this.options.weekdays) {
-      weekdays.appendChild(createNode('span', 'weekday', weekday));
-    }
-
-    doc.querySelector(this.options.appendTo).appendChild(this.datepicker);
-  }
-
-  setupOutClick() {
-    doc.addEventListener('click', event => {
-      const target = event.target;
-      const isOutsideClick = this.isOpened &&
-        !this.parentElement.isEqualNode(target) &&
-        !this.datepicker.isEqualNode(target) &&
-        !this.datepicker.contains(target);
-      if (isOutsideClick) {
-        this.hide();
-      }
-    }, true);
-  }
-
-  show() {
-    const parentOffset = this.parentElement.getBoundingClientRect();
-    const topOffset = parentOffset.top + 55;
-    const leftOffset = parentOffset.left;
-    this.isOpened = true;
-    this.datepicker.style.cssText = `display: block; top: ${(topOffset)}px; left: ${leftOffset}px;`;
-    this.calendar.applyDecorators();
-  }
-
-  hide(delay=0) {
-    setTimeout(() => {
-      this.isOpened = false;
-      this.datepicker.style.display = 'none';
-    }, delay);
-  }
-
-  selectDate(date) {
-    let options = this.options;
-    if (isSame(date, options.currentMonth, 'year month')) {
-      options.currentDate = date;
-      this.updateInputDate(date);
-      this.calendar.applyDecorators();
-    }
-  }
-
-  updateInputDate(date) {
-    const options = this.options;
-    if (!options.updateInput) {
-      return;
-    }
-    this.parentElement.value = options.formatInputDate(date);
-  }
-
-  onClickPrevMonth() {
-    const options = this.options;
-    options.currentMonth = prevMonth(options.currentMonth);
+    this.decorators = [];
+  
+    this.container = createDiv(this.options.className, this.options.template);
+    this.addEventListener = this.container.addEventListener.bind(this.container);
+    this.removeEventListener = this.container.removeEventListener.bind(this.container);
+    
+    this.setupCalendarNodes();
+    this.setupListeners();
     this.draw();
   }
 
-  onClickNextMonth() {
-    const options = this.options;
-    options.currentMonth = nextMonth(options.currentMonth);
-    this.draw();
+  setupCalendarNodes() {
+    this.nodes = reserve(42).map(() => createDiv('day'));
+    appendChildList(this.query('.calendar'), this.nodes);
   }
 
-  updateTitle() {
-    const options = this.options;
-    const title = options.formatTitleDate(options.currentMonth);
-    this.datepicker.querySelector('.title').innerText = title;
+  setupListeners() {
+    this.query('.prev').addEventListener('click', e => this.setMonth(prevMonth(this.options.month)));
+    this.query('.next').addEventListener('click', e => this.setMonth(nextMonth(this.options.month)));
+    this.query('.calendar').addEventListener('click', e => this.dispatchDateEvent('OnClickDate', e));
+    this.query('.calendar').addEventListener('mouseover', e => this.dispatchDateEvent('OnMouseOverDate', e));
+  }
+
+  applyDecorators() {
+    this.nodes.forEach(node => {
+      this.decorators.forEach(d => {
+        d.shouldApply(node.date)
+        ? node.classList.add(d.className)
+        : node.classList.remove(d.className)
+      });
+    });
+  }
+
+  setDate(date) {
+    this.options.date = date;
+    this.applyDecorators();
+  }
+
+  setCalendar(date) {
+    const days = calendarDays(date);
+    this.nodes.forEach((node, idx) => {
+      node.innerText = days[idx].getDate();
+      node.date = days[idx];
+    });
+    this.applyDecorators();
+  }
+
+  setWeekDays() {
+    const weekdayNames = getWeekDayNames(this.options.language);
+    const weekdays = this.query('.weekdays');
+    removeContent(weekdays);
+    appendChildList(weekdays, weekdayNames.map(w => createDiv('weekday', w)));
+  }
+
+  setTitle(date) {
+    const year = date.getFullYear();
+    const month = getMonthName(date, this.options.language);
+    this.query('.title').innerText = `${year} ${month}`;
   }
 
   draw() {
-    this.updateTitle();
-    this.calendar.draw(this.options.currentMonth);
+    const month = this.options.month;
+    this.setCalendar(month, this.decorators);
+    this.setWeekDays();
+    this.setTitle(month);
   }
 
-  formatInputDate(date) {
-    return date.toLocaleDateString(this.options.language, {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'numeric'
-    });
+  setMonth(date) {
+    this.options.month = date;
+    this.draw();
   }
 
-  formatTitleDate(date) {
-    return date.toLocaleDateString(this.options.language, {
-      month: 'long',
-      year: 'numeric'
-    });
+  setDecorators(decorators) {
+    this.decorators = decorators;
+    this.applyDecorators();
+  }
+
+  addDecorators(decorators) {
+    this.setDecorators([ ...this.decorators, ...decorators ]);
+  }
+
+  dispatchDateEvent(eventName, event) {
+    if (this.query('.calendar') !== event.target.parentNode) {
+      return;
+    }
+    if ('OnClickDate' === eventName) {
+      this.setDate(event.target.date);
+    }
+    this.container.dispatchEvent(createEvent(eventName, { date: event.target.date }));
+  }
+
+  query(selector) {
+    return this.container.querySelector(selector);
   }
 }

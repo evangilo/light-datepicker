@@ -4,3 +4,9 @@ export function createNode(name, className, html) {
   node.innerHTML = html;
   return node;
 }
+
+export const reserve = (size) =>
+  new Array(size).fill();
+
+export const range = (start, end) =>
+  reserve(end - start).map((_, idx) => idx + start);
