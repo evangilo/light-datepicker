@@ -37,6 +37,7 @@ export class DatePicker {
     this.container = createDiv(this.options.className, this.options.template);
     this.addEventListener = this.container.addEventListener.bind(this.container);
     this.removeEventListener = this.container.removeEventListener.bind(this.container);
+    this.dispatchEvent = this.container.dispatchEvent.bind(this.container);
     
     this.setupCalendarNodes();
     this.setupListeners();
@@ -113,6 +114,10 @@ export class DatePicker {
     this.setDecorators([ ...this.decorators, ...decorators ]);
   }
 
+  dispatchEvent(eventName, data) {
+    this.container.dispatchEvent();
+  }
+
   dispatchDateEvent(eventName, event) {
     if (this.query('.calendar') !== event.target.parentNode) {
       return;
@@ -120,7 +125,7 @@ export class DatePicker {
     if ('OnClickDate' === eventName) {
       this.setDate(event.target.date);
     }
-    this.container.dispatchEvent(createEvent(eventName, { date: event.target.date }));
+    this.dispatchEvent(createEvent(eventName, event.target.date));
   }
 
   query(selector) {
