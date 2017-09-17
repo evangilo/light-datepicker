@@ -12,7 +12,7 @@
 // range.leftDatePicker.calendar.on('clickDate', event => console.log('left:date', event.detail));
 // range.rightDatePicker.calendar.on('clickDate', event => console.log('right:date', event.detail));
 
-const d = new datepicker.DatePicker({ language: 'pt-BR' });
+const d = new datepicker.DatePicker(null, null, 'en-US');
 
 d.addEventListener('OnClickDate', ({ detail }) => {
   console.log('OnClickDate', detail);
@@ -22,4 +22,4 @@ d.addEventListener('OnMouseOverDate', ({ detail }) => {
   console.log('OnMouseOverDate', detail);
 });
 
-document.body.appendChild(d.container);
+document.body.appendChild(d.el);

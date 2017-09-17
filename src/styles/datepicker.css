@@ -1,4 +1,48 @@
 .datepicker {
+  width: 259px;
+}
+.datepicker .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.datepicker .header .prev-month {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAOUlEQVR4AWMYxqABCElS/p/hN4MWacpDSFMeSlPlYaQo/0OScnyQYg0IJ4XjcsLI0KJFmpa64Zt3AdTaQlFOlKYFAAAAAElFTkSuQmCC');
+  background-position: left center;  
+}
+
+.datepicker .header .next-month {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAOUlEQVR4AWMYxqCRoYEU5boMfxj+k6YlgnQtkXTREkW6lmjcWv7jhQ3kayDspGGrnPLE1wCEwxYAABNmQoikBfhoAAAAAElFTkSuQmCC');
+  background-position: right center;
+}
+
+.datepicker .header .prev-month,
+.datepicker .header .next-month {
+  width: 37px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.calendar {
+  display: flex;
+  max-width: 259px;
+  flex-wrap: wrap;
+}
+.calendar .weekday,
+.calendar .day {
+  display: flex;
+  width: 37px;
+  height: 37px;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar .day {
+  cursor: pointer;
+}
+
+/*.datepicker {
   position: absolute;
   width: 260px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
@@ -105,3 +149,4 @@
   color: #fff;
   font-weight: 600;
 }
+*/

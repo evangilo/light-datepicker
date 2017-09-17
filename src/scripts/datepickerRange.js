@@ -1,4 +1,4 @@
-import { DatePicker } from './datepicker';
+import DatePicker from './DatePicker';
 
 export class DatePickerRange {
 

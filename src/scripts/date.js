@@ -50,7 +50,3 @@ export function getWeekDayNames(locale) {
   const saturday = addDays(sunday, 6)
   return dateRange(sunday, saturday).map(d => d.toLocaleDateString(locale, { weekday: 'short' }));
 }
-
-export function getMonthName(date, locale) {
-  return date.toLocaleDateString(locale, { month: 'long' });
-}
