@@ -37,16 +37,19 @@ export function calendarDays(date) {
   return [...left, ...month, ...right];
 }
 
-export function isSame(date, other, filter='year month day') {
-  return (date && other) &&
-    (!filter.includes('year') || date.getFullYear() === other.getFullYear()) &&
-    (!filter.includes('month') || date.getMonth() === other.getMonth()) &&
-    (!filter.includes('day') || date.getDate() === other.getDate());
-}
-
 export function getWeekDayNames(locale) {
   const now = new Date()
   const sunday = subtractDays(now, now.getDay());
   const saturday = addDays(sunday, 6)
   return dateRange(sunday, saturday).map(d => d.toLocaleDateString(locale, { weekday: 'short' }));
+}
+
+export const getMonthName = (date, locale) =>
+  date.toLocaleDateString(locale, { month: 'long' }); 
+
+export function isSame(date, other, filter='year month day') {
+  return (date && other) &&
+    (!filter.includes('year') || date.getFullYear() === other.getFullYear()) &&
+    (!filter.includes('month') || date.getMonth() === other.getMonth()) &&
+    (!filter.includes('day') || date.getDate() === other.getDate());
 }

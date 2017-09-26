@@ -1,118 +1,21 @@
 .datepicker {
-  width: 259px;
-}
-.datepicker .header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.datepicker .header .prev-month {
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAOUlEQVR4AWMYxqABCElS/p/hN4MWacpDSFMeSlPlYaQo/0OScnyQYg0IJ4XjcsLI0KJFmpa64Zt3AdTaQlFOlKYFAAAAAElFTkSuQmCC');
-  background-position: left center;  
-}
-
-.datepicker .header .next-month {
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAOUlEQVR4AWMYxqCRoYEU5boMfxj+k6YlgnQtkXTREkW6lmjcWv7jhQ3kayDspGGrnPLE1wCEwxYAABNmQoikBfhoAAAAAElFTkSuQmCC');
-  background-position: right center;
-}
-
-.datepicker .header .prev-month,
-.datepicker .header .next-month {
-  width: 37px;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}
-
-.calendar {
-  display: flex;
-  max-width: 259px;
-  flex-wrap: wrap;
-}
-.calendar .weekday,
-.calendar .day {
-  display: flex;
-  width: 37px;
-  height: 37px;
-  justify-content: center;
-  align-items: center;
-}
-
-.calendar .day {
-  cursor: pointer;
-}
-
-/*.datepicker {
   position: absolute;
-  width: 260px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  width: auto;
   padding: 15px;
-  z-index: 9999;
   background-color: #fff;
-}
-
-.datepicker, .datepicker span {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-}
-
-.datepicker .arrow {
-  position: relative;
-  background: #fff;
-}
-
-.datepicker .arrow:after{
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border: 10px solid rgba(0, 0, 0, 0.4);
-  border-color: #ffffff #ffffff transparent transparent;
-  transform: rotate(-45deg);
-  top: -23px;
-  left: 15px;
-  box-shadow: 3px -3px 3px 0 rgba(0, 0, 0, 0.15);
-}
-
-.datepicker .title {
-  text-transform: capitalize;
-}
-
-.datepicker .weekdays,
-.datepicker .calendar {
-  display: flex;
-  padding: 0;
-  flex-wrap: wrap;
-}
-
-.datepicker .weekdays div,
-.datepicker .calendar div {
-  display: flex;
-  width: 37px;
-  height: 37px;
-  background-color: #ffffff;
-  border: 1px solid #ffffff;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  text-transform: capitalize;
-}
-
-.datepicker .calendar div {
-  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  z-index: 999;
 }
 
 .datepicker .header {
   display: flex;
-  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  line-height: 28px;
 }
 
 .datepicker .header .prev {
   background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAOUlEQVR4AWMYxqABCElS/p/hN4MWacpDSFMeSlPlYaQo/0OScnyQYg0IJ4XjcsLI0KJFmpa64Zt3AdTaQlFOlKYFAAAAAElFTkSuQmCC');
-  background-position: left center;  
+  background-position: left center; 
 }
 
 .datepicker .header .next {
@@ -122,31 +25,49 @@
 
 .datepicker .header .prev,
 .datepicker .header .next {
-  width: 37px;
+  width: 30px;
+  height: 30px;
+  margin: 2.5px;
   background-repeat: no-repeat;
   cursor: pointer;
 }
 
-.calendar .disabled,
-.calendar .disabled:hover {
-  background-color: #ffffff;
-  color: #cccccc;
-  border: 1px solid #ffffff;
-  cursor: default;
-  pointer-events: none;
+.datepicker .calendar {
+  display: flex;
+  flex-wrap: wrap;
+  width: 245px;
 }
 
+.datepicker .calendar .weekday,
+.datepicker .calendar .day {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  margin: 2.5px;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.datepicker .calendar .day {
+  cursor: pointer;
+}
+
+/* Decorators */
 .datepicker .calendar .today {
-  background-color: #7f8284;
+  font-weight: 600;
+  color: #fff;
+  background-color: #99b7d0;;
 }
 
 .datepicker .calendar .selected {
+  font-weight: 600;
+  color: #fff;
   background-color: #ff690f;
 }
 
-.datepicker .calendar .today,
-.datepicker .calendar .selected {
-  color: #fff;
-  font-weight: 600;
+.datepicker .calendar .out-month {
+  color: #ccc;
+  pointer-events: none;
 }
-*/

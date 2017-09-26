@@ -1,25 +1,6 @@
+const single = new datepicker.DatePicker({ selector: '#datepicker' });
+single.calendar.addEventListener('OnClickDate', e => console.log('OnClickDate', e.detail));
+single.calendar.addEventListener('OnMouseOverDate', e => console.log('OnMouseOverDate', e.detail));
 
-
-// const single = new datepicker.DatePicker({ selector: '#datepicker' });
-// const range = new datepicker.DatePickerRange({
-//     language: 'pt-BR',
-//     leftSelector: '#left-datepicker',
-//     rightSelector: '#right-datepicker',
-//     appendTo: '.jumbotron'
-// });
-
-// single.calendar.on('clickDate', event => console.log('single:date', event.detail));
-// range.leftDatePicker.calendar.on('clickDate', event => console.log('left:date', event.detail));
-// range.rightDatePicker.calendar.on('clickDate', event => console.log('right:date', event.detail));
-
-const d = new datepicker.DatePicker(null, null, 'en-US');
-
-d.addEventListener('OnClickDate', ({ detail }) => {
-  console.log('OnClickDate', detail);
-});
-
-d.addEventListener('OnMouseOverDate', ({ detail }) => {
-  console.log('OnMouseOverDate', detail);
-});
-
-document.body.appendChild(d.el);
+// document.querySelector('.container').innerHTML = '';
+// document.querySelector('.container').appendChild(single.el);

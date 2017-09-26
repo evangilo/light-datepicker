@@ -53,7 +53,7 @@ export default class Calendar extends Element {
   }
 
   dispatchDateEvent(eventName, e) {
-    if (e.target.date) {
+    if (e.target.date instanceof Date) {
       this.dispatchEvent(eventName, e.target.date, true, true);
     }
   }

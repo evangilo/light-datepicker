@@ -1,16 +1,16 @@
 import { isSame } from './date';
 
-export const TodayDecorator = () => ({
+export const todayDecorator = () => ({
 	shouldApply: (nodeDate) => isSame(nodeDate, new Date()),
 	className: 'today'
 });
 
-export const DisabledDecorator = (fn) => ({
-	shouldApply: (nodeDate) => !isSame(nodeDate, fn.apply(), 'year month'),
-	className: 'disabled'
+export const outMonthDecorator = (cb) => ({
+	shouldApply: (nodeDate) => !isSame(nodeDate, cb(), 'year month'),
+	className: 'out-month'
 });
 
-export const SeletedDecorator = (fn) => ({
-	shouldApply: (nodeDate) => isSame(nodeDate, fn.apply()),
+export const seletedDecorator = (cb) => ({
+	shouldApply: (nodeDate) => isSame(nodeDate, cb()),
 	className: 'selected'
 });
