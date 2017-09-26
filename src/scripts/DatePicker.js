@@ -62,6 +62,7 @@ export default class DatePicker extends Element {
     const leftOffset = parentOffset.left;
     this.isOpened = true;
     this.el.style.cssText = `display: block; top: ${(topOffset)}px; left: ${leftOffset}px;`;
+    this.calendar.applyDecorators();
   }
 
   // FIXME (evangilo): move to Popover class

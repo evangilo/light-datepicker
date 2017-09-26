@@ -67,7 +67,16 @@
   background-color: #ff690f;
 }
 
-.datepicker .calendar .out-month {
-  color: #ccc;
+.datepicker .calendar .out-month,
+.datepicker .calendar .disabled {
+  color: #cccccc;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
   pointer-events: none;
+}
+
+.datepicker .calendar .range {
+  background-color: #ffffff;
+  border: 1px solid #ff690f;
+  color: #ff690f;
 }
