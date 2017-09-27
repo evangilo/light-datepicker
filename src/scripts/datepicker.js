@@ -62,8 +62,8 @@ export class DatePicker {
   setupDatePicker() {
     this.datepicker = createNode('div', 'datepicker', this.options.template);
     this.datepicker.querySelector('.days').appendChild(this.calendar.container);
-    this.datepicker.querySelector('.prev').addEventListener('click', event => this.onClickPrevMonth());
-    this.datepicker.querySelector('.next').addEventListener('click', event => this.onClickNextMonth());
+    this.datepicker.querySelector('.prev').addEventListener('click', event => this.setMonth(prevMonth(this.options.currentMonth)));
+    this.datepicker.querySelector('.next').addEventListener('click', event => this.setMonth(nextMonth(this.options.currentMonth)));
     this.datepicker.style.display = 'none';
 
     let weekdays = this.datepicker.querySelector('.weekdays');
@@ -120,15 +120,8 @@ export class DatePicker {
     this.parentElement.value = options.formatInputDate(date);
   }
 
-  onClickPrevMonth() {
-    const options = this.options;
-    options.currentMonth = prevMonth(options.currentMonth);
-    this.draw();
-  }
-
-  onClickNextMonth() {
-    const options = this.options;
-    options.currentMonth = nextMonth(options.currentMonth);
+  setMonth(date) {
+    this.options.currentMonth = date;
     this.draw();
   }
 
