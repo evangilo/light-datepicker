@@ -1,4 +1,5 @@
 import { DatePicker } from './datepicker';
+import { disabledRangeDecorator, rangeDecorator } from './decorators';
 
 export class DatePickerRange {
 
@@ -32,17 +33,11 @@ export class DatePickerRange {
   }
 
   setupDecorators() {
-    let rangeDisableRightDecorator = (date) => {
-      return date < this.leftDatePicker.options.currentDate;
-    };
-
-    let rangeDecorator = (date) =>  {
-      return date >= this.leftDatePicker.options.currentDate &&
-             date <= this.rightDatePicker.options.currentDate;
-    };
-
-    this.rightDatePicker.calendar.addDecorator(rangeDisableRightDecorator, 'disabled');
-    this.leftDatePicker.calendar.addDecorator(rangeDecorator, 'range');
-    this.rightDatePicker.calendar.addDecorator(rangeDecorator, 'range');
+    const getStartDate = () => this.leftDatePicker.options.currentDate;
+    const getEndDate = () => this.rightDatePicker.options.currentDate;
+    const rangeDec = rangeDecorator(getStartDate, getEndDate);
+    this.leftDatePicker.calendar.addDecorator(rangeDec);
+    this.rightDatePicker.calendar.addDecorator(rangeDec);
+    this.rightDatePicker.calendar.addDecorator(disabledRangeDecorator(() => this.leftDatePicker.options.currentDate));
   }
 }

@@ -1,6 +1,7 @@
 import '../styles/datepicker.css';
 import { Calendar } from './calendar';
 import { isSame, prevMonth, nextMonth } from './date';
+import { todayDecorator, outMonthDecorator, thisMonthDecorator, selectedDecorator} from './decorators';
 import { createNode } from './util';
 
 const LANGUAGE = window.navigator.language;
@@ -51,9 +52,10 @@ export class DatePicker {
   setupCalendar() {
     let options = this.options;
     this.calendar = new Calendar(options.weekdays);
-    this.calendar.addDecorator(date => !isSame(date, options.currentMonth, 'year month'), 'out-month');
-    this.calendar.addDecorator(date => isSame(date, options.currentMonth, 'year month'), 'enabled');
-    this.calendar.addDecorator(date => isSame(date, options.currentDate), 'selected');
+    this.calendar.addDecorator(todayDecorator())
+    this.calendar.addDecorator(outMonthDecorator(() => options.currentMonth));
+    this.calendar.addDecorator(thisMonthDecorator(() => options.currentMonth));
+    this.calendar.addDecorator(selectedDecorator(() => options.currentDate));
     this.calendar.on('clickDate', event => this.selectDate(event.detail));
   }
 

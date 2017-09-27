@@ -46,14 +46,14 @@ export class Calendar {
     }
   }
 
-  addDecorator(filter, className) {
-    this.decorators.push({filter: filter, className: className});
+  addDecorator(decorator) {
+    this.decorators.push(decorator);
   }
 
   applyDecorators() {
     this.nodes.forEach(node => {
-      this.decorators.some(decorator => {
-        if (decorator.filter(node.date)) {
+      this.decorators.forEach(decorator => {
+        if (decorator.shouldApply(node.date)) {
           node.classList.add(decorator.className);
         } else {
           node.classList.remove(decorator.className);
