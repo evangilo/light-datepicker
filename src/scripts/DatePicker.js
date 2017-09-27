@@ -1,5 +1,5 @@
 import '../styles/datepicker.css';
-import { Calendar } from './calendar';
+import { Calendar } from './Calendar';
 import { isSame, prevMonth, nextMonth } from './date';
 import { todayDecorator, outMonthDecorator, thisMonthDecorator, selectedDecorator} from './decorators';
 import { createNode } from './util';

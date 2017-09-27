@@ -1,4 +1,4 @@
-import { DatePicker } from './datepicker';
+import { DatePicker } from './DatePicker';
 import { disabledRangeDecorator, rangeDecorator } from './decorators';
 
 export class DatePickerRange {
