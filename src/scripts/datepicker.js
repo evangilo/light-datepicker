@@ -21,7 +21,7 @@ const doc = window.document;
 export class DatePicker {
 
   constructor(options) {
-    this.options = {
+    const initalState = {
       currentDate: new Date(),
       selector: null,
       updateInput: true,
@@ -32,7 +32,7 @@ export class DatePicker {
       formatInputDate: date => this.formatInputDate(date),
       formatTitleDate: date => this.formatTitleDate(date)
     };
-    this.options = { ...this.options, ...options };
+    this.options = { ...initalState, ...options };
     this.options.currentMonth = Object.assign(this.options.currentDate);
 
     this.setupParentElement();
