@@ -54,33 +54,26 @@
 
 .datepicker .header {
   display: flex;
-  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  line-height: 28px;
 }
 
-.datepicker .header .prev::before {
-  content: "\1F850";
+.datepicker .header .prev {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAOUlEQVR4AWMYxqABCElS/p/hN4MWacpDSFMeSlPlYaQo/0OScnyQYg0IJ4XjcsLI0KJFmpa64Zt3AdTaQlFOlKYFAAAAAElFTkSuQmCC');
+  background-position: left center;
 }
 
-.datepicker .header .next::before {
-  content: "\1F852";
+.datepicker .header .next {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAOUlEQVR4AWMYxqCRoYEU5boMfxj+k6YlgnQtkXTREkW6lmjcWv7jhQ3kayDspGGrnPLE1wCEwxYAABNmQoikBfhoAAAAAElFTkSuQmCC');
+  background-position: right center;
 }
 
 .datepicker .header .prev,
 .datepicker .header .next {
-  background-color: transparent;
-  border: none;
-  font-size: 1.5em;
-  font-weight: 900;
-  padding: 0;
-  cursor: pointer;
-  line-height: 18px;
-}
-
-.datepicker .header .prev:hover,
-.datepicker .header .next:hover {
-  color: #ff690f;
+  width: 30px;
+  height: 30px;
+  margin: 2.5px;
+  background-repeat: no-repeat;
   cursor: pointer;
 }
 
