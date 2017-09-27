@@ -24,7 +24,6 @@ export class DatePicker {
       currentDate: new Date(),
       selector: null,
       updateInput: true,
-      language: 'en-Us',
       appendTo: 'body',
       language: LANGUAGE,
       weekdays: WEEKDAYS,
